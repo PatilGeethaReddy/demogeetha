@@ -1,10 +1,11 @@
-data "aws_route53_zone" "selected" {
-  name         = var.domain_name
-  private_zone = true
-}
-resource "aws_route53_record" "www" {
+# data "aws_route53_zone" "selected" {
+#   name         = var.domain_name
+#   private_zone = true
+# }
+resource "aws_route53_record" "benz" {
   for_each = toset(var.record_name)
-  zone_id = data.aws_route53_zone.selected.zone_id
+  # zone_id = data.aws_route53_zone.selected.zone_id
+  zone_id = var.zone_id
   name    = "${each.value}.${data.aws_route53_zone.selected.name}"
   type    = var.record_type
   ttl     = var.record_ttl
