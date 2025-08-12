@@ -3,10 +3,10 @@ data "aws_route53_zone" "selected" {
   private_zone = true
 }
 resource "aws_route53_record" "www" {
-  for_each = var.record_name
+  for_each = toset(var.record_name)
   zone_id = data.aws_route53_zone.selected.zone_id
   name    = "${each.value}.${data.aws_route53_zone.selected.name}"
   type    = var.record_type
   ttl     = var.record_ttl
-  records = [aws_lb.my_lb.dns_name]
+  records = ["13.220.160.198"]
 }
